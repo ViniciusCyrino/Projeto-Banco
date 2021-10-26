@@ -1,0 +1,87 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Gerente extends Usuario {
+
+    String nome;
+    int codigo;
+    int senha;
+    ArrayList<Cliente> listaclientes = new ArrayList<>();
+    Scanner scanner = new Scanner(System.in);
+    
+    Gerente (String nome, int codigo, int senha){
+    this.nome = nome;
+    this.codigo = codigo;
+    this.senha = senha;
+    }
+    
+    void addCliente(Cliente aux) {
+    listaclientes.add(aux);
+    }
+    
+    void verClientes() {
+        for (Cliente model : listaclientes) {
+            System.out.println(model.getName()+ "  " + "codigo: ");
+            System.out.println(model.getCodigo());
+            model.imprime();
+        }
+    }
+    
+    void verContas() {
+        int lenght=listaclientes.size();
+        for(int i=0;i<lenght;i++) {
+            listaclientes.get(i).imprimecompleto();
+        }
+    }
+    
+    void aplicação() {
+        int lenght=listaclientes.size();
+        System.out.println("Escolha o cliente para fazer um deposito");
+        for (int i=0;i<lenght;i++) {
+            System.out.println(i + " " + listaclientes.get(i).nome);
+        }
+        System.out.println("Escolha o cliente para fazer um deposito");
+        int aux = scanner.nextInt();
+        listaclientes.get(aux).deposito();
+    }
+    
+    void transferencia() {
+        int lenght=listaclientes.size();
+        boolean controle=true;
+        for (int i=0;i<lenght;i++) {
+            System.out.println(i + " " + listaclientes.get(i).nome);
+        }
+        System.out.println("Escolha o  remetente da transferencia");
+        int aux2 = scanner.nextInt();
+        System.out.println("Escolha o beneficiado da transferencia");
+        int aux3 = scanner.nextInt();
+        System.out.println("Digite o valor da transferencia");
+        double valor = scanner.nextDouble();
+        listaclientes.get(aux2).setTransferencia(valor,controle);
+        controle=false;
+        listaclientes.get(aux3).setTransferencia(valor,controle);
+    }
+    
+    void retirada() {
+        int lenght=listaclientes.size();
+        for (int i=0;i<lenght;i++) {
+            System.out.println(i + " " + listaclientes.get(i).nome);
+        }
+        System.out.println("Escolha o cliente para o saque");
+        int aux = scanner.nextInt();
+        listaclientes.get(aux).sacarGerente();
+    }
+    
+    void limite() {
+        int lenght=listaclientes.size();
+        for (int i=0;i<lenght;i++) {
+            System.out.println(i + " " + listaclientes.get(i).nome);
+        }
+        System.out.println("Escolha o cliente para alterar seu limite ou taxa de juros");
+        int aux = scanner.nextInt();
+        System.out.println("Deseja alterar o limite (1) ou a taxa de juros (2)?");
+        int aux1 = scanner.nextInt();
+        listaclientes.get(aux).limite(aux1);
+    }
+    
+}
